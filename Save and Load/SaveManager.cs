@@ -81,4 +81,12 @@ public class SaveManager : MonoBehaviour
 		IEnumerable<ISaveManager> saveManagers = Resources.FindObjectsOfTypeAll<MonoBehaviour>().OfType<ISaveManager>();
 		return new List<ISaveManager>(saveManagers);
 	}
+
+ 	public bool HasSavedData()
+	{
+		if(dataHandler.Load() != null)
+			return true;
+
+		return false;
+	}
 }
