@@ -1,0 +1,92 @@
+----------------------------git---------------------------------//
+
+git init
+git remote add origin linkhttp //thiết lập liên kết lần đầu với kho trên cloud
+
+/*lần đầu dùng git cần cài đặt 2 lệnh dưới 
+
+git config --global user.email emailhere
+git config --global user.name namehere
+
+*/ 
+
+git fetch origin               //kéo repo cloud về kho dữ liệu     
+git checkout -f -t origin/main //tạo ra nhánh main tại local  và hợp dữ liệu bên cloud vào
+git checkout -b develop        //tạo nhánh "develop" tại local và trỏ vào nhánh đó
+git add .                      //thêm tất cả các file vào kho lưu trữ tạm thời
+git commit -m "update"         //lưu vào kho lưu trữ  (local)
+git push --set-upstream origin develop //lần đầu đẩy dữ liệu lên nhánh mới
+---
+git checkout main
+git merge develop
+git push --set-upstream origin main
+-----------thêm chức năng mới--------
+git checkout -b feature/"tên chức năng"  //tạo ra một nhánh mới và chyển hướng về chức năng đó
+git add .                                //thêm tất cả các thay đổi
+git commit -m "update ten chuc nang"     //lưu vào local
+git checkout develop                     // Chuyển sang nhánh develop khi làm xong chức năng
+git merge feature/"tên chức năng"        // Hợp nhất nhánh feature/"tên chức năng" vào develop
+git push origin develop                  //Đẩy thay đổi trên nhánh develop lên GitHub
+git branch -d feature/"tên chức năng"    //xóa nhánh chức năng khi hoàn thành 
+---------các lệnh thường dùng----------
+git branch                            //kiểm tra xem có các nhánh nào
+git commit -m "Thông điệp commit"     // Lưu thay đổi tại local
+git log                               // Xem lịch sử commit
+git checkout 6b8c4a599720921a98218b3b2d770ae0c488369b//xem lại phiên bản nào đó trong unity với id
+git status                           //kiểm tra các file đã sửa đổi tại local
+git branch -d "tên nhánh"            //xóa nhánh local
+git push origin --delete "tên nhánh" //xóa nhánh cloud(github)
+git reset --hard HEAD~1              //chuyển bản commit cuối cùng về nhánh hiện tại
+
+
+------
+git reset --hard origin/main
+git show 6b8c4a599720921a98218b3b2d770ae0c488369b //xem lại thông tin commit một phiên bản nào đó theo id 
+git pull origin tên_nhánh             // Lấy dữ liệu và tự động hợp nhất với nhánh hiện tại
+git reset --hard "tên nhánh"         //trở về trạng thái ban đầu những dữ liệu chưa được commit sẽ bị xóa
+git fetch origin "tên nhánh"         //lấy dữ liệu mới nhất của nhánh đó về
+git merge origin/develop             //hợp nhất với dữ liệu mới nhất,nếu làm việc nhiều người nên hợp nhất dữ liệu mới trên cloud trước khi đẩy để tránh xung đột với người khác.
+git merge --abort                    //hủy hợp nhất và quay trở lại trạng thái ban đầu
+git reflog                           //chưa tất cả commit bao gồm commit bị xóa
+git cherry-pick 56ae54d              //lấy phiên bản trong git reflog
+git cherry-pick --abort              //hủy git cherry-pick và quay trở lại trạng thái ban đầu
+
+--------các lệnh cứng -----
+
+git push origin develop --force          //thay đổi phiên bản bao gồm cả lịch sử và ko kiểm tra xung đột
+git push origin develop --force-with-lease //thay đổi phiên bản bao gồm cả lịch sử và kiểm tra xung đột
+git reset --hard "mã ID"                  //chuyển về phiên bản với mã ID và tất cả phiên bản lưu sau ID sẽ bị xóa
+
+/*xóa một file nào đó trong tất cả phiên bản trên cloud//.vsconfig = tên file
+git rm --cached .vsconfig
+git commit -m "Removed .vsconfig from repository"
+git push origin main
+*/
+/*cưỡng chế quay lại phiên bản trước đó nếu ko xử lý được xung đột
+git checkout develop
+git fetch origin
+git reset --hard origin/develop
+*/
+
+----------một số lệnh khác----------
+git stash                              // Lưu thay đổi chưa commit vào một nơi tạm thời
+git stash pop                          // Áp dụng lại thay đổi từ stash
+git diff                               // Xem thay đổi giữa working directory và staging area
+git diff --staged                      // Xem thay đổi giữa staging area và commit gần nhất
+git branch -m master main              //đổi tên mặc định local sang tên main
+-----------------------------git nhóm--------------
+git init //tạo ra kho mặc định tại local
+git remote add origin linkhttp //thiết lập liên kết lần đầu
+git fetch origin                  //kéo repo cloud về kho dữ liệu
+git checkout -f -t origin/develop //lệnh cứng ép phiên bản tại kho lưu trữ vào dự án unity
+git checkout -f -t origin/main
+git checkout -b feature
+git merge develop
+------------
+git config --global user.email *taikhoan@gmail.com
+git config --global user.name *usernameGit
+
+git config --global core.autocrlf true //sửa lỗi cấu hình cho window
+
+
+
